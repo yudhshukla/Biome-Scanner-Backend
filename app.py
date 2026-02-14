@@ -1,24 +1,22 @@
 import os
 import requests
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request
+from flask_cors import CORS  # NEW!
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # NEW! This allows GitHub Pages to talk to this server
 
-# Serve the HTML file
-@app.route('/')
-def index():
-    return send_from_directory('static', 'index.html')
+# We no longer serve HTML or Images here. GitHub Pages does that.
 
-# Endpoint 1: Send Mapbox Key to frontend
 @app.route('/api/config')
 def get_config():
+    # Note: You might not even need this anymore if you hardcode the key in JS, 
+    # but keeping it is safer!
     return jsonify({'mapboxKey': os.getenv('MAPBOX_KEY')})
 
-# Endpoint 2: The Master Scan
 @app.route('/api/scan')
 def scan():
     lat = request.args.get('lat')
@@ -45,19 +43,17 @@ def scan():
         mapbox_key = os.getenv('MAPBOX_KEY')
         geo_url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{lng},{lat}.json?types=country,region&access_token={mapbox_key}"
         
-        # --- NEW CODE: Send the 'Referer' header ---
-        headers = {"Referer": "https://minecraft-biome-scanner.onrender.com/"} 
-        geo_res = requests.get(geo_url, headers=headers)
-        # -------------------------------------------
+        # We don't need the Referer header trick as much now, but keeping it is fine.
+        # Ideally, whitelist your GitHub Pages URL in Mapbox dashboard.
+        geo_res = requests.get(geo_url)
+        
         features = geo_res.json().get('features', [])
-        # Extract Country
         country = next((f for f in features if f['id'].startswith('country')), None)
         if country:
             geo_data['countryName'] = country.get('text')
             if 'short_code' in country.get('properties', {}):
                 geo_data['countryCode'] = country['properties']['short_code'].upper()
         
-        # Extract Region
         region = next((f for f in features if f['id'].startswith('region')), None)
         if region:
             geo_data['regionName'] = region.get('text')
@@ -65,18 +61,10 @@ def scan():
     except Exception as e:
         print(f"Geo API Error: {e}")
 
-    # Return combined data
     return jsonify({
         'weather': weather_data,
         'geo': geo_data
     })
-
-
-# --- ADD THIS NEW ROUTE ---
-@app.route('/images/<path:filename>')
-def serve_images(filename):
-    return send_from_directory('static/images', filename)
-# --------------------------
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
