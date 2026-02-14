@@ -1,3 +1,5 @@
+This project features the backend, written in python and hosted on Render.com, for my Minecraft Biome Scanner website, whose frontend is in Biome-Scanner-Frontend, with the help of Gemini Pro.
+
 I want to build a backend for this website. Currently, everything is in index.html. I want to use Render to host it. What should be my first step?
 
 I would like to use Python for the backend
