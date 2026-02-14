@@ -1,0 +1,29 @@
+This project features one HTML file for the core logic which uses Mapbox and OpenWeatherMap APIs with the help of Gemini Pro.
+
+I want to create a project that uses geographical data (maybe a world map) and maps attributes of certain countries/places to minecraft biomes. And includes chinese! Which APIs are best suited for this? This should be a 2-3 hour AI-guided project.
+
+I want more climates, I feel like 4 is not comprehensive.
+
+The cursor is not showing up as the crosshair, how can I fix this?
+
+The cursor is a pokeball, can we change this? I also want the pop up and image to be much bigger, maybe like a sidebar that opens. And currently, the ocean is processed the same as land, saying that its plains or forests which doesnt make sense.
+
+Now the detection logic is very wrong. It's showing forest in the middle east. Can u first try to develop a foolproof biome detection logic?
+
+Ok this is better. Let's display more information like the weather, sky condition, and elevation. Can we add more biomes? There are some generalzied classifications liek Greeland to be jagged peaks, but I think the overall detection system is good.
+
+Draw from the minecraft biomes list. Also, how can I make all of the attributes bigger?
+
+Is this the most accurate? Im wondering some countries are hardcoded to only have one biome. Is that ok?
+
+Is there any way to get around the fact that when its cold and high elevation, it thinks its jagged peaks like in in taiwan and some african countries.
+
+I think i know how we can deal with the ocean. It correctly detects ocean to be in the 'ocean continent.' so in this case, we should not apply land conditionals, but create a new detection ssytem when continent is 'ocean' and classify into minecrafts ocean biomes. dont worry about the images, ill add those later
+
+Can we include a likely mobs list in the sidebar?
+
+Why does every country show up as ocean now?
+
+Okay, so it looks like we have a ton of biomes in our list, but we are not applying all of them. Without disrupting the robust biome classification system, can we apply more of the biomes we have? Dont add any new biomes to our list-- I found images already. Assume that the images are in the format of images/deeplukewarmocean.png, no spaces all lowercase title. Please replace the image with that, and apply more biomes if possible (dont add any, just classify)
+
+How come all of the ocean elevations are -24m?
