@@ -23,3 +23,5 @@ How do I start with adding a game system that tracks new biomes visited?
 I just realized the backend and frontend needs to be seperate. I've created two seperate repos for them and moved files around, but what changes do I need to make to app.py so it can communciate with the frontend?
 
 Am I supposed to just see my mapbox key when I open the render URL? Why is that?
+
+Can you explain what app.py is doing at each endpoint? How exactly does index.html communicate with it?
