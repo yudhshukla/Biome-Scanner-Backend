@@ -13,9 +13,10 @@ CORS(app)  # NEW! This allows GitHub Pages to talk to this server
 
 @app.route('/api/config')
 def get_config():
-    # Note: You might not even need this anymore if you hardcode the key in JS, 
-    # but keeping it is safer!
-    return jsonify({'mapboxKey': os.getenv('MAPBOX_KEY')})
+    return jsonify({
+        'mapboxKey': os.getenv('MAPBOX_KEY'),
+        'googleKey': os.getenv('GOOGLE_KEY')
+    })
 
 @app.route('/api/scan')
 def scan():
