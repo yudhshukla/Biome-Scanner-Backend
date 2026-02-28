@@ -55,7 +55,6 @@ def init_db():
             (70.0169771,29.3159249),
             (-17.8704595,22.9141841),
             (14.4485164,-12.2097686),
-            (-1.2157195,-90.4224469),
             (26.9470458,-101.4519393),
             (29.7163099,-91.8758019),
         ]
@@ -132,7 +131,7 @@ def random_drop():
     cursor = conn.cursor()
 
     # Grab ONE completely random location from the vault
-    cursor.execute('SELECT lat, lng, FROM places ORDER BY RANDOM() LIMIT 1')
+    cursor.execute('SELECT lat, lng FROM places ORDER BY RANDOM() LIMIT 1')
     row = cursor.fetchone()
     conn.close()
 
