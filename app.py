@@ -22,8 +22,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS places (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             lat REAL,
-            lng REAL,
-            description TEXT
+            lng REAL
         )
     ''')
 
@@ -31,16 +30,37 @@ def init_db():
     cursor.execute('SELECT COUNT(*) FROM places')
     if cursor.fetchone()[0] == 0:
         curated_locations = [
-            (36.1069, -115.1765, "Las Vegas Strip, USA (Desert)"),
-            (21.2893, -157.8312, "Honolulu, Hawaii (Tropical Jungle)"),
-            (61.2181, -149.9003, "Anchorage, Alaska (Snowy Taiga)"),
-            (-1.2921, 36.8219, "Nairobi, Kenya (Savanna)"),
-            (38.8354, -94.9926, "Kansas Highway, USA (Plains)"),
-            (35.6895, 139.6917, "Tokyo, Japan (Cherry Grove/City)"),
-            (-33.8688, 151.2093, "Sydney, Australia (Plains/Coast)")
+            (24.313860169581474, 120.72260003897149),
+            (35.656953, 139.701049),
+            (15.37487642320615, 73.84141820396536),
+            (16.444841780257196, 81.98312723041202),
+            (60.66553215661249, -151.2442154258491),
+            (25.893521108388082, -80.13201875671935),
+            (-22.82562754593602, -43.28518857420447),
+            (25.166021850737096, 55.23289077961821),
+            (6.493642556821508, 3.382043892124227),
+            (47.194825422589695, 8.732110241707225),
+            (39.2967789,174.0634346),
+            (69.226387,-51.1038896),
+            (45.8326345,6.8651281),
+            (78.2244785,15.6099272),
+            (-64.8396294,-62.5270017),
+            (17.611136,-90.4269349),
+            (-1.6959129,29.2547082),
+            (55.3398559,124.7577026),
+            (-13.8455335,146.5593553),
+            (-8.2713522,124.409033),
+            (45.0133047,78.3693),
+            (46.7495666,19.4740217),
+            (70.0169771,29.3159249),
+            (-17.8704595,22.9141841),
+            (14.4485164,-12.2097686),
+            (-1.2157195,-90.4224469),
+            (26.9470458,-101.4519393),
+            (29.7163099,-91.8758019),
         ]
         # Insert them all into the database
-        cursor.executemany('INSERT INTO places (lat, lng, description) VALUES (?, ?, ?)', curated_locations)
+        cursor.executemany('INSERT INTO places (lat, lng) VALUES (?, ?)', curated_locations)
         conn.commit()
         print("Database initialized with curated locations!")
 
@@ -112,7 +132,7 @@ def random_drop():
     cursor = conn.cursor()
 
     # Grab ONE completely random location from the vault
-    cursor.execute('SELECT lat, lng, description FROM places ORDER BY RANDOM() LIMIT 1')
+    cursor.execute('SELECT lat, lng, FROM places ORDER BY RANDOM() LIMIT 1')
     row = cursor.fetchone()
     conn.close()
 
@@ -121,11 +141,10 @@ def random_drop():
         return jsonify({
             'lat': row[0],
             'lng': row[1],
-            'description': row[2]
         })
     else:
         # Fallback just in case the database is empty
         return jsonify({'error': 'No locations found'}), 404
-    
+        
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
