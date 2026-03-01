@@ -34,3 +34,5 @@ What does it mean to execute, why does it need to be done twice?
 
 I've added an error handling condition but this isn't necessary since we're only polling from the database right?
 
+The coordinates you gave me are not good views for biome guessing and some of them don't exist. I'm going to manually put in my own coords. From there, I can recursively call the triggerRandomDrop function in my frontend if the coords end up not having a streetview. This is fine right since there's only a limited number of coords?
+
