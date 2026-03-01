@@ -25,3 +25,12 @@ I just realized the backend and frontend needs to be seperate. I've created two 
 Am I supposed to just see my mapbox key when I open the render URL? Why is that?
 
 Can you explain what app.py is doing at each endpoint? How exactly does index.html communicate with it?
+
+I still really like the idea of how geoguessr puts users in a random location. Since it's unfeasible to randomly select coordinates, can I create a database of some sort that preloads known coordinates and selects coordinates from there?
+
+I've created a table with lng, lat, location values, but I do not know how to incorporate sql here
+
+What does it mean to execute, why does it need to be done twice?
+
+I've added an error handling condition but this isn't necessary since we're only polling from the database right?
+
